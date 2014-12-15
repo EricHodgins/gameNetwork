@@ -234,6 +234,9 @@ def add_new_user(network, user, games):
 #   himself/herself. It is also OK if the list contains a user's primary 
 #   connection that is a secondary connection as well.
 def get_secondary_connections(network, user):
+	if user not in network:
+		return None
+
 	secondary_connections = []
 	for player in get_connections(network, user):
 		for player_second_connection in get_connections(network, player):
@@ -254,6 +257,7 @@ def get_secondary_connections(network, user):
 #   The number of connections in common (as an integer).
 #   - If user_A or user_B is not in network, return False.
 def connections_in_common(network, user_A, user_B):
+
     return 0
 
 # ----------------------------------------------------------------------------- 
@@ -314,8 +318,8 @@ net = create_data_structure(example_input)
 #print add_connection(net, "Fart", "Freda")
 #print path_to_friend(net, "John", "Ollie")
 #print add_new_user(net, "Debra", []) 
-#print add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
+add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
 #print add_connection(net, "Nick", "John")
 
-print get_secondary_connections(net, "Mercedes")
+print get_secondary_connections(net, "Nick")
 #print connections_in_common(net, "Mercedes", "John")
