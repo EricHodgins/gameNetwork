@@ -257,8 +257,16 @@ def get_secondary_connections(network, user):
 #   The number of connections in common (as an integer).
 #   - If user_A or user_B is not in network, return False.
 def connections_in_common(network, user_A, user_B):
+	if user_A not in network or user_B not in network:
+		return False
 
-    return 0
+	common_counter = 0
+	for player_A_connection in get_connections(network, user_A):
+		for player_B_connection in get_connections(network, user_B):
+			if player_A_connection == player_B_connection:
+				common_counter += 1
+	return common_counter
+
 
 # ----------------------------------------------------------------------------- 
 # path_to_friend(network, user_A, user_B): 
@@ -311,8 +319,8 @@ net = create_data_structure(example_input)
 
 #print get_connections(net, "Bobby")
 #print get_connections(net, "Debra")
-#print get_connections(net, "Mercedes")
-#print get_connections(net, "John")
+print get_connections(net, "Mercedes")
+print get_connections(net, "John")
 #rint get_games_liked(net, "John")
 #print add_connection(net, "John", "Freda")
 #print add_connection(net, "Fart", "Freda")
@@ -321,5 +329,5 @@ net = create_data_structure(example_input)
 add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
 #print add_connection(net, "Nick", "John")
 
-print get_secondary_connections(net, "Nick")
-#print connections_in_common(net, "Mercedes", "John")
+#print get_secondary_connections(net, "Nick")
+print connections_in_common(net, "Mercedes", "John")
