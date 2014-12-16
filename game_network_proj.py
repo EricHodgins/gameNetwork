@@ -304,29 +304,22 @@ def path_to_friend(network, user_A, user_B, tracking=None):
 	# your RECURSIVE solution here!
 	if tracking == None:
 		tracking = []
-	#print "user_A: {}".format(user_A)
-	#print "Tracking: {}".format(tracking)
 
 	if len(tracking) > 0 and tracking[-1] == user_B:
 		return
 
-	#print "++++++"
 	if user_B in network[user_A][0]:
-		#print "{}: {}".format(user_A, network[user_A][0])
-		#print "User_B: {}".format(user_B)
 		tracking.append(user_A)
 		tracking.append(user_B)
-		#print "========================================="
-		#print tracking
-		#print "========================================="
 		return tracking
+
 	if user_A in tracking:
 		return 
 
 	tracking.append(user_A)
 
 	for connection in network[user_A][0]:
-		path = path_to_friend(network, connection, user_B, tracking)
+		path_to_friend(network, connection, user_B, tracking)
 
 	return tracking
 
