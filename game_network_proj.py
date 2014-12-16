@@ -300,9 +300,34 @@ def connections_in_common(network, user_A, user_B):
 #   in this procedure to keep track of nodes already visited in your search. You 
 #   may safely add default parameters since all calls used in the grading script 
 #   will only include the arguments network, user_A, and user_B.
-def path_to_friend(network, user_A, user_B):
+def path_to_friend(network, user_A, user_B, tracking=[]):
 	# your RECURSIVE solution here!
-	return None
+	print "user_A: {}".format(user_A)
+	print "Tracking: {}".format(tracking)
+
+	if len(tracking) != 0:
+		if tracking[-1] == user_B:
+			return
+
+	#print "++++++"
+	if user_B in network[user_A][0]:
+		#print "{}: {}".format(user_A, network[user_A][0])
+		#print "User_B: {}".format(user_B)
+		tracking.append(user_A)
+		tracking.append(user_B)
+		#print "========================================="
+		#print tracking
+		#print "========================================="
+		return tracking
+	if user_A in tracking:
+		return 
+
+	tracking.append(user_A)
+
+	for connection in network[user_A][0]:
+		path = path_to_friend(network, connection, user_B)
+
+
 
 # Make-Your-Own-Procedure (MYOP)
 # ----------------------------------------------------------------------------- 
@@ -319,15 +344,18 @@ net = create_data_structure(example_input)
 
 #print get_connections(net, "Bobby")
 #print get_connections(net, "Debra")
-print get_connections(net, "Mercedes")
-print get_connections(net, "John")
+#print get_connections(net, "Mercedes")
+#print get_connections(net, "John")
 #rint get_games_liked(net, "John")
 #print add_connection(net, "John", "Freda")
 #print add_connection(net, "Fart", "Freda")
 #print path_to_friend(net, "John", "Ollie")
+print path_to_friend(net, "Olive", "Robin")
+print "Moving on..."
+print path_to_friend(net, "John", "Ollie")
 #print add_new_user(net, "Debra", []) 
-add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
+#add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
 #print add_connection(net, "Nick", "John")
 
 #print get_secondary_connections(net, "Nick")
-print connections_in_common(net, "Mercedes", "John")
+#print connections_in_common(net, "Mercedes", "John")
