@@ -300,14 +300,15 @@ def connections_in_common(network, user_A, user_B):
 #   in this procedure to keep track of nodes already visited in your search. You 
 #   may safely add default parameters since all calls used in the grading script 
 #   will only include the arguments network, user_A, and user_B.
-def path_to_friend(network, user_A, user_B, tracking=[]):
+def path_to_friend(network, user_A, user_B, tracking=None):
 	# your RECURSIVE solution here!
-	print "user_A: {}".format(user_A)
-	print "Tracking: {}".format(tracking)
+	if tracking == None:
+		tracking = []
+	#print "user_A: {}".format(user_A)
+	#print "Tracking: {}".format(tracking)
 
-	if len(tracking) != 0:
-		if tracking[-1] == user_B:
-			return
+	if len(tracking) > 0 and tracking[-1] == user_B:
+		return
 
 	#print "++++++"
 	if user_B in network[user_A][0]:
@@ -325,9 +326,9 @@ def path_to_friend(network, user_A, user_B, tracking=[]):
 	tracking.append(user_A)
 
 	for connection in network[user_A][0]:
-		path = path_to_friend(network, connection, user_B)
+		path = path_to_friend(network, connection, user_B, tracking)
 
-
+	return tracking
 
 # Make-Your-Own-Procedure (MYOP)
 # ----------------------------------------------------------------------------- 
@@ -351,8 +352,8 @@ net = create_data_structure(example_input)
 #print add_connection(net, "Fart", "Freda")
 #print path_to_friend(net, "John", "Ollie")
 print path_to_friend(net, "Olive", "Robin")
-print "Moving on..."
 print path_to_friend(net, "John", "Ollie")
+print path_to_friend(net, "Freda", "Mercedes")
 #print add_new_user(net, "Debra", []) 
 #add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
 #print add_connection(net, "Nick", "John")
