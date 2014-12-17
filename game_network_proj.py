@@ -333,23 +333,42 @@ def path_to_friend(network, user_A, user_B, tracking=None):
 # Replace this with your own procedure! You can also uncomment the lines below
 # to see how your code behaves. Have fun!
 
+#rank_games_popularity returns a dictionary with the number of times a game is
+#shared with other players.
+def rank_games_popularity(network):
+	all_games = {}
+	for player in network:
+		for game_info in network[player][1]:
+				if game_info not in all_games:
+					all_games[game_info] = 1
+
+
+	for game in all_games:
+		for player in network:
+			if game in network[player][1]:
+				all_games[game] += 1
+
+	return all_games
+
+
+
+	
 net = create_data_structure(example_input)
 #print net
-
+print rank_games_popularity(net)
 #print get_connections(net, "Bobby")
 #print get_connections(net, "Debra")
 #print get_connections(net, "Mercedes")
 #print get_connections(net, "John")
 #rint get_games_liked(net, "John")
 #print add_connection(net, "John", "Freda")
-#print add_connection(net, "Fart", "Freda")
+#print add_connection(net, "Bart", "Freda")
 #print path_to_friend(net, "John", "Ollie")
-print path_to_friend(net, "Olive", "Robin")
-print path_to_friend(net, "John", "Ollie")
-print path_to_friend(net, "Freda", "Mercedes")
+#print path_to_friend(net, "Olive", "Robin")
+#print path_to_friend(net, "John", "Ollie")
+#print path_to_friend(net, "Freda", "Mercedes")
 #print add_new_user(net, "Debra", []) 
 #add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
 #print add_connection(net, "Nick", "John")
-
 #print get_secondary_connections(net, "Nick")
 #print connections_in_common(net, "Mercedes", "John")
